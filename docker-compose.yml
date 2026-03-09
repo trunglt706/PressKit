@@ -1,0 +1,131 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: presskit_app
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: presskit
+      DB_USERNAME: presskit
+      DB_PASSWORD: presskit123
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - presskit_net
+
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: presskit_queue
+    working_dir: /var/www/html
+    command: ["php", "artisan", "queue:work", "redis", "--sleep=3", "--tries=3", "--timeout=90"]
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: presskit
+      DB_USERNAME: presskit
+      DB_PASSWORD: presskit123
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - presskit_net
+
+  cron:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: presskit_cron
+    working_dir: /var/www/html
+    command: ["/usr/local/bin/start-cron"]
+    volumes:
+      - ./:/var/www/html
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: presskit
+      DB_USERNAME: presskit
+      DB_PASSWORD: presskit123
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    networks:
+      - presskit_net
+
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: presskit_nginx
+    command: >
+      /bin/sh -c "apk add --no-cache openssl >/dev/null 2>&1 && mkdir -p /etc/nginx/ssl && if [ ! -f /etc/nginx/ssl/presskit.internal.crt ] || [ ! -f /etc/nginx/ssl/presskit.internal.key ]; then openssl req -x509 -nodes -newkey rsa:2048 -days 3650 -keyout /etc/nginx/ssl/presskit.internal.key -out /etc/nginx/ssl/presskit.internal.crt -subj '/CN=presskit.internal' -addext 'subjectAltName=DNS:presskit.internal'; fi && nginx -g 'daemon off;'"
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - app
+    networks:
+      - presskit_net
+
+  mysql:
+    image: mysql:8.4
+    container_name: presskit_mysql
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: presskit
+      MYSQL_USER: presskit
+      MYSQL_PASSWORD: presskit123
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - presskit_net
+
+  redis:
+    image: redis:7-alpine
+    container_name: presskit_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - presskit_net
+
+networks:
+  presskit_net:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:
