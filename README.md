@@ -57,3 +57,12 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Docker NPM
+
+- Start Vite dev server in Docker:
+	- `docker compose up -d node`
+- Run build in Docker:
+	- `docker compose run --rm node npm run build`
+- Stop Vite container:
+	- `docker compose stop node`

@@ -1,0 +1,117 @@
+:root {
+    --guest-font-sans: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --guest-font-display: 'Merriweather', Georgia, serif;
+    --guest-size-body: 1rem;
+    --guest-size-body-lg: 1.125rem;
+    --guest-size-title: clamp(2rem, 2.8vw, 3rem);
+    --guest-size-subtitle: clamp(1.5rem, 2.2vw, 2.25rem);
+    --guest-size-card-title: clamp(1.25rem, 1.8vw, 1.75rem);
+    --guest-line-body: 1.75;
+}
+
+.guest-site {
+    font-family: var(--guest-font-sans);
+    font-size: var(--guest-size-body);
+    line-height: var(--guest-line-body);
+}
+
+.guest-content {
+    font-size: var(--guest-size-body);
+}
+
+.guest-title {
+    font-family: var(--guest-font-display);
+    font-size: var(--guest-size-title);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+}
+
+.guest-subtitle {
+    font-family: var(--guest-font-display);
+    font-size: var(--guest-size-subtitle);
+    line-height: 1.25;
+}
+
+.guest-card-title {
+    font-size: var(--guest-size-card-title);
+    line-height: 1.3;
+}
+
+.guest-lead {
+    font-size: var(--guest-size-body-lg);
+    line-height: 1.75;
+}
+
+.guest-text {
+    font-size: var(--guest-size-body);
+    line-height: var(--guest-line-body);
+}
+
+.guest-meta {
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.guest-site input::placeholder,
+.guest-site textarea::placeholder {
+    color: rgb(148 163 184);
+    font-style: italic;
+    opacity: 1;
+}
+
+.dark .guest-site input::placeholder,
+.dark .guest-site textarea::placeholder {
+    color: rgb(148 163 184 / 0.78);
+}
+
+.article-image-shell {
+    position: relative;
+    overflow: hidden;
+    background: rgb(241 245 249);
+}
+
+.dark .article-image-shell {
+    background: rgb(30 41 59);
+}
+
+.article-image-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 0.6) 45%, rgba(255, 255, 255, 0) 70%);
+    transform: translateX(-100%);
+    animation: article-image-shimmer 1.4s infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.article-image-shell.is-loaded::before {
+    animation: none;
+    opacity: 0;
+}
+
+.article-lazy-image {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.article-image-shell.is-loaded .article-lazy-image {
+    opacity: 1;
+}
+
+@keyframes article-image-shimmer {
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .guest-site {
+        font-size: 15px;
+    }
+
+    .guest-lead {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+}
