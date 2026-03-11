@@ -1,68 +1,118 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 📰 PressKit: CMS Báo Điện Tử Hiện Đại
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align="center">
+  <img src="presskit-internal.png" alt="PressKit CMS Dashboard" width="100%" />
+</div>
 
-## About Laravel
+<div align="center">
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Boost Productivity, Optimize SEO, and Scale Your Online Newspaper.**
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+[![Laravel](https://img.shields.io/badge/Laravel-^12.0-F23E1A.svg?style=flat&logo=laravel&logoColor=white)](https://laravel.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)](https://github.com/your-org/presskit/actions)
+[![Static Cache](https://img.shields.io/badge/Static-HTML%20Cache-blue.svg)](https://github.com/your-org/presskit)
+[![AI Powered](https://img.shields.io/badge/AI-SEO%20Optimized-yellow.svg)](https://github.com/your-org/presskit)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+</div>
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+**PressKit** là một hệ thống quản trị nội dung (CMS) chuyên dụng cho báo điện tử, được xây dựng trên nền tảng **Laravel**. Hệ thống tập trung vào hiệu suất cao, tối ưu SEO vượt trội và khả năng mở rộng linh hoạt cho các tòa soạn lớn. Với PressKit, bạn có thể nhanh chóng xây dựng, quản lý và xuất bản nội dung báo chí chuyên nghiệp.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## ✨ Các tính năng vượt trội
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<table align="center">
+  <tr>
+    <td align="center" width="180px">
+      <br><strong>🚀 Xuất bản siêu tốc</strong>
+    </td>
+    <td align="center" width="180px">
+      <br><strong>🤖 Trợ lý AI SEO</strong>
+    </td>
+    <td align="center" width="180px">
+      <br><strong>📈 Phân tích Xu hướng</strong>
+    </td>
+    <td align="center" width="180px">
+      <br><strong>🔄 Workflow Linh hoạt</strong>
+    </td>
+  </tr>
+</table>
 
-### Premium Partners
+- ⚡️ **Hạ tầng tối ưu:** Kiến trúc mở rộng, sẵn sàng cho hệ thống chịu tải lớn, tối ưu tốc độ tải trang.
+- 🤖 **AI SEO:** Tích hợp AI hỗ trợ biên tập, gợi ý meta description, từ khóa và tối ưu hóa cấu trúc bài viết.
+- 📈 **Trending & Scoring:** Thuật toán tính toán bài viết Hot theo thời gian thực (Decay Algorithm).
+- 🔄 **Quy trình chuyên nghiệp:** Hỗ trợ quy trình kiểm duyệt chuẩn tòa soạn: Editor - Reviewer - Publisher.
+- 📱 **Mobile AMP Ready:** Tự động tạo phiên bản AMP tối ưu cho thiết bị di động.
+- 💰 **Quản lý Quảng cáo:** Tích hợp Google Ads, Banner Ads và Native Ads.
+- 📊 **User Analytics:** Theo dõi Page view, Reading time, Scroll depth và Share count.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+---
 
-## Contributing
+## 🛠 Công nghệ sử dụng
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+PressKit được xây dựng trên những công nghệ hiện đại nhất:
 
-## Code of Conduct
+| Công nghệ | Mục đích |
+| :--- | :--- |
+| **Laravel** | Backend Framework mạnh mẽ |
+| **MySQL** | Cơ sở dữ liệu chính |
+| **Redis** | Xử lý Cache, Counter và Ranking bài viết |
+| **Meilisearch** | Công cụ Full-text search tốc độ cao |
+| **Filament** | Giao diện quản trị (Admin Panel) hiện đại |
+| **CDN** | Phân phối nội dung tĩnh toàn cầu |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 💻 Hướng dẫn cài đặt nhanh
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Yêu cầu hệ thống
+* PHP >= 8.2
+* MySQL >= 8.0
+* Node.js & NPM
+* Redis & Composer
 
-## License
+### Các bước cài đặt
+```bash
+# Clone dự án
+git clone https://github.com/trunglt706/PressKit.git
+cd presskit
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# Cài đặt thư viện
+composer install
 
-## Docker NPM
+# Cấu hình môi trường
+cp .env.example .env
+php artisan key:generate
 
-- Start Vite dev server in Docker:
-	- `docker compose up -d node`
-- Run build in Docker:
-	- `docker compose run --rm node npm run build`
-- Stop Vite container:
-	- `docker compose stop node`
+# Khởi tạo dữ liệu
+php artisan migrate
+php artisan db:seed
+
+# Cài đặt các gói phụ thuộc
+npm install
+
+# Build assets cho môi trường production 
+npm run build
+
+# HOẶC chạy môi trường phát triển (Hot Reload)
+npm run dev
+
+# Khởi động dịch vụ
+php artisan serve
+
+```
+## 🤝 Liên hệ & Đóng góp
+
+Chúng tôi hoan nghênh mọi đóng góp của bạn để phát triển PressKit tốt hơn! Hãy tạo Issue hoặc Pull Request trên GitHub.
+
+-   **Author:** PressKit Team
+    
+-   **License:** MIT
+    
+
+----------
+
+<div align="center"> <sub>PressKit | Developed with ❤️ by the PressKit Team</sub> </div>
