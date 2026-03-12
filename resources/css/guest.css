@@ -1,10 +1,10 @@
 :root {
     --guest-font-sans: 'Be Vietnam Pro', system-ui, -apple-system, 'Segoe UI', sans-serif;
-    --guest-font-display: 'Merriweather', Georgia, serif;
+    --guest-font-display: 'Be Vietnam Pro', Georgia, serif;
     --guest-size-body: 1rem;
     --guest-size-body-lg: 1.125rem;
     --guest-size-title: clamp(2rem, 2.8vw, 3rem);
-    --guest-size-subtitle: clamp(1.5rem, 2.2vw, 2.25rem);
+    --guest-size-subtitle: clamp(1.5rem, 1.8vw, 2.25rem);
     --guest-size-card-title: clamp(1.25rem, 1.8vw, 1.75rem);
     --guest-line-body: 1.75;
 }

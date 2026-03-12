@@ -17,8 +17,8 @@
                     <div class="absolute inset-0 bg-gradient-to-r from-black/85 via-black/55 to-black/20"></div>
                     <div class="absolute bottom-0 left-0 p-6 md:p-10 max-w-4xl">
                         <span class="inline-block px-3 py-1 mb-4 text-xs font-bold uppercase tracking-wider text-white bg-primary rounded">Nổi bật</span>
-                        <h1 class="guest-title font-display font-extrabold text-white mb-3">{{ $featuredArticle->title }}</h1>
-                        <p class="guest-lead text-slate-200 mb-5 line-clamp-2">{{ $featuredArticle->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($featuredArticle->content), 170) }}</p>
+                        <h1 class="guest-title font-display font-extrabold text-white mb-3 line-clamp-2">{{ $featuredArticle->title }}</h1>
+                        <p class="guest-lead text-slate-200 mb-5 line-clamp-3">{{ $featuredArticle->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($featuredArticle->content), 170) }}</p>
                         <a href="{{ route('articles.show', ['article' => $featuredArticle->slug]) }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white font-bold rounded-lg hover:bg-blue-700 transition-colors">
                             Đọc ngay <span class="material-symbols-outlined">arrow_forward</span>
                         </a>
@@ -52,10 +52,10 @@
                                         {{ $article->published_at?->diffForHumans() ?? 'Vừa xong' }}
                                     </span>
                                 </div>
-                                <h3 class="guest-card-title font-display font-bold mb-2 hover:text-primary">
+                                <h4 class="guest-card-title font-display font-bold mb-2 hover:text-primary line-clamp-2">
                                     <a href="{{ route('articles.show', ['article' => $article->slug]) }}">{{ $article->title }}</a>
-                                </h3>
-                                <p class="guest-text text-slate-600 line-clamp-2">{{ $article->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($article->content), 170) }}</p>
+                                </h4>
+                                <p class="guest-text text-slate-600 line-clamp-3">{{ $article->excerpt ?: \Illuminate\Support\Str::limit(strip_tags($article->content), 170) }}</p>
                             </div>
                         </article>
                     @empty
@@ -80,7 +80,7 @@
                                 <div class="pl-2">
                                     <a href="{{ route('articles.show', ['article' => $popular->slug]) }}" class="guest-meta font-semibold leading-snug hover:text-primary">{{ \Illuminate\Support\Str::limit($popular->title, 78) }}</a>
                                     <div class="mt-1 flex flex-wrap items-center gap-2">
-                                        <span class="inline-flex items-center rounded-full border border-primary/40 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary">
+                                        <span class="inline-flex items-center rounded-full border border-primary/40 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary line-clamp-2">
                                             {{ $popular->category?->name ?? 'Tin tức' }}
                                         </span>
                                         <span class="inline-flex items-center gap-1 guest-meta text-slate-500">

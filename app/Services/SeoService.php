@@ -8,6 +8,10 @@ use Illuminate\Support\Str;
 
 class SeoService
 {
+    /**
+     * Apply all SEO meta tags (title, description, canonical, OpenGraph, JSON-LD,
+     * keywords, and OG image) for the given article page using SEOTools.
+     */
     public function applyForArticle(Article $article): void
     {
         $seo = $article->seo;

@@ -4,6 +4,7 @@
 
 @section('head')
     {!! \Artesaos\SEOTools\Facades\SEOTools::generate() !!}
+    @vite(['resources/js/article-show.js'])
 @endsection
 
 @section('content')
@@ -31,11 +32,11 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="button" class="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200">
+                    <button type="button" class="inline-flex btn-share items-center gap-2 rounded-lg bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200">
                         <span class="material-symbols-outlined text-base">share</span>
                         Chia sẻ
                     </button>
-                    <button type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200">
+                    <button type="button" class="inline-flex btn-copy-link h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-200">
                         <span class="material-symbols-outlined text-base">bookmark</span>
                     </button>
                 </div>
@@ -55,25 +56,7 @@
             </figure>
 
             <div class="mt-8 space-y-6 guest-text text-slate-700 dark:text-slate-200">
-                <p class="first-letter:float-left first-letter:mr-3 first-letter:font-display first-letter:text-6xl first-letter:font-bold first-letter:text-primary">
-                    {!! nl2br(e((string) \Illuminate\Support\Str::limit(strip_tags($article->content), 2200, '...'))) !!}
-                </p>
-
-                <h2 class="guest-subtitle font-display font-extrabold text-slate-900 dark:text-white">Phân tích chuyên sâu</h2>
-                <p>
-                    Nội dung được biên tập theo hướng cân bằng giữa tốc độ cập nhật và độ chính xác thông tin,
-                    đồng thời đặt trọng tâm vào bối cảnh, dữ liệu và tác động dài hạn đối với xã hội.
-                </p>
-
-                <blockquote class="rounded-r-lg border-l-4 border-primary bg-primary/5 px-5 py-3 guest-lead italic text-slate-600 dark:text-slate-300">
-                    "Báo chí chất lượng không chỉ cung cấp thông tin mà còn giúp độc giả hiểu đúng bản chất của sự kiện."
-                </blockquote>
-
-                <h2 class="guest-subtitle font-display font-extrabold text-slate-900 dark:text-white">Góc nhìn minh bạch</h2>
-                <p>
-                    Chúng tôi ưu tiên tiêu chuẩn xác minh nhiều lớp, nguồn trích dẫn rõ ràng và quy trình biên tập độc lập,
-                    nhằm giảm thiểu nhiễu thông tin và tăng giá trị tham khảo cho người đọc.
-                </p>
+                {!! $article->content !!}
             </div>
 
             <div class="mt-10 flex flex-wrap gap-2 border-t border-slate-200 pt-6 dark:border-slate-700">

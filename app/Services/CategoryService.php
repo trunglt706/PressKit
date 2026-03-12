@@ -14,11 +14,17 @@ class CategoryService
     ) {
     }
 
+    /**
+     * Paginate categories ordered by creation date descending (admin listing).
+     */
     public function paginateLatest(int $perPage = 15): LengthAwarePaginator
     {
         return $this->categoryRepository->paginateLatest($perPage);
     }
 
+    /**
+     * Create a new category with the given name, description, and status.
+     */
     public function create(array $data): Category
     {
         return $this->categoryRepository->create([
@@ -28,6 +34,9 @@ class CategoryService
         ]);
     }
 
+    /**
+     * Update an existing category with the given name, description, and status.
+     */
     public function update(Category $category, array $data): Category
     {
         return $this->categoryRepository->update($category, [
@@ -37,6 +46,9 @@ class CategoryService
         ]);
     }
 
+    /**
+     * Delete the given category from the database.
+     */
     public function delete(Category $category): void
     {
         $this->categoryRepository->delete($category);

@@ -176,11 +176,19 @@ class HotArticleService
         return count($scoredRows);
     }
 
+    /**
+     * Build the Redis key used to store the view counter for an article.
+     */
     private function viewCounterKey(int $articleId): string
     {
         return sprintf('hot:article:%d:views', $articleId);
     }
 
+    /**
+     * Return a recency bonus score based on how many hours have elapsed since
+     * the article was published at the time of score calculation.
+     * Score: 20 (≤24 h) · 10 (≤72 h) · 0 (older).
+     */
     private function freshScore(Article $article, CarbonInterface $calculatedAt): int
     {
         $publishedAt = $article->published_at;
