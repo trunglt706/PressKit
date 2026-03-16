@@ -23,11 +23,18 @@ class ArticleService
     ) {
     }
 
+    /**
+     * Paginate articles ordered by creation date descending (admin listing).
+     */
     public function paginateLatest(int $perPage = 10): LengthAwarePaginator
     {
         return $this->articleRepository->paginateLatest($perPage);
     }
 
+    /**
+     * Create a new article with its SEO record, media uploads, and an initial
+     * version snapshot. Clears the response cache after persisting.
+     */
     public function create(array $data): Article
     {
         $seoData = $this->extractSeoData($data);
@@ -42,6 +49,11 @@ class ArticleService
         return $article;
     }
 
+    /**
+     * Update an existing article. A new version snapshot is created only when
+     * the content changes or new version files are provided.
+     * Clears the response cache after persisting.
+     */
     public function update(Article $article, array $data): Article
     {
         $seoData = $this->extractSeoData($data);
@@ -62,6 +74,11 @@ class ArticleService
         return $article;
     }
 
+    /**
+     * Update the article slug, normalising it and appending a counter to ensure
+     * uniqueness. Throws InvalidArgumentException for empty slugs.
+     * Clears the response cache after persisting.
+     */
     public function updateSlug(Article $article, string $slug): Article
     {
         $normalizedSlug = Str::slug($slug);
@@ -81,6 +98,10 @@ class ArticleService
         return $updated;
     }
 
+    /**
+     * Transition a draft article to the "review" workflow status.
+     * Throws InvalidArgumentException if the article is not a draft.
+     */
     public function submitForReview(Article $article): Article
     {
         if ($article->status !== ArticleStatus::DRAFT) {
@@ -97,6 +118,12 @@ class ArticleService
         return $updated;
     }
 
+    /**
+     * Approve an article that is currently in the "review" workflow status.
+     * Throws InvalidArgumentException if the article is not in review.
+     *
+     * @param  int|null  $reviewerId  ID of the user performing the approval.
+     */
     public function approve(Article $article, ?int $reviewerId): Article
     {
         if ($article->workflow_status !== 'review') {
@@ -114,6 +141,13 @@ class ArticleService
         return $updated;
     }
 
+    /**
+     * Publish an approved article, set its published_at timestamp, and dispatch
+     * the publish pipeline job. Throws InvalidArgumentException if the article
+     * is not in "approved" or "published" workflow status.
+     *
+     * @param  int|null  $publisherId  ID of the user performing the publish action.
+     */
     public function publish(Article $article, ?int $publisherId): Article
     {
         if (!in_array($article->workflow_status, ['approved', 'published'], true)) {
@@ -133,12 +167,19 @@ class ArticleService
         return $updated;
     }
 
+    /**
+     * Delete the given article and clear the response cache.
+     */
     public function delete(Article $article): void
     {
         $this->articleRepository->delete($article);
         $this->clearResponseCache();
     }
 
+    /**
+     * Restore a set of allowed fields from an activity log snapshot ("old" properties).
+     * Throws InvalidArgumentException when the activity contains no restorable data.
+     */
     public function restoreFromActivity(Article $article, Activity $activity): Article
     {
         $oldValues = $activity->properties['old'] ?? [];
@@ -168,6 +209,10 @@ class ArticleService
         return $updated;
     }
 
+    /**
+     * Generate a unique slug derived from $baseSlug, skipping the given article ID.
+     * Appends an incrementing integer suffix until the slug is unique.
+     */
     private function resolveUniqueSlug(string $baseSlug, int $ignoreId): string
     {
         $slug = $baseSlug;
@@ -185,6 +230,10 @@ class ArticleService
         return $slug;
     }
 
+    /**
+     * Pop SEO-related keys (seo_title, seo_description, seo_keywords, seo_og_image)
+     * from the data array and return them as a separate array.
+     */
     private function extractSeoData(array &$data): array
     {
         $seoData = [
@@ -199,6 +248,10 @@ class ArticleService
         return $seoData;
     }
 
+    /**
+     * Upsert the ArticleSeo record for the article and run the SEO analyzer to
+     * update the score, breakdown, and warnings.
+     */
     private function syncSeo(Article $article, array $seoData): void
     {
         $articleSeo = $article->seo()->updateOrCreate([], $seoData);
@@ -215,6 +268,10 @@ class ArticleService
         ]);
     }
 
+    /**
+     * Pop media-related keys (featured_image, gallery, attachments, version_files)
+     * from the data array and return them as a separate array.
+     */
     private function extractMediaData(array &$data): array
     {
         $mediaData = [
@@ -229,6 +286,11 @@ class ArticleService
         return $mediaData;
     }
 
+    /**
+     * Persist featured image, gallery, and attachment files to their respective
+     * Spatie Media Library collections. Replaces the featured image if a new one
+     * is provided; appends gallery and attachment files.
+     */
     private function syncArticleMedia(Article $article, array $mediaData): void
     {
         if ($mediaData['featured_image'] instanceof UploadedFile) {
@@ -249,6 +311,12 @@ class ArticleService
         }
     }
 
+    /**
+     * Create a versioned snapshot of the current article content with an
+     * auto-incremented version number, attaching any provided version files.
+     *
+     * @param  mixed  $updatedBy  User ID of the editor (cast to int) or null.
+     */
     private function createVersionSnapshot(Article $article, mixed $updatedBy, array $versionFiles): ArticleVersion
     {
         $nextVersionNumber = (int) $article->versions()->max('version_number') + 1;
@@ -268,6 +336,9 @@ class ArticleService
         return $version;
     }
 
+    /**
+     * Flush the entire Spatie ResponseCache to ensure stale pages are not served.
+     */
     private function clearResponseCache(): void
     {
         ResponseCache::clear();

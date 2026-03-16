@@ -44,6 +44,9 @@ class SeoAnalyzerService
         ];
     }
 
+    /**
+     * Score the title length. Returns 10 for 50–60 chars, 5 for 40–70 chars, 0 otherwise.
+     */
     private function scoreTitleLength(string $title): int
     {
         $len = Str::length(trim($title));
@@ -59,6 +62,9 @@ class SeoAnalyzerService
         return 0;
     }
 
+    /**
+     * Score the meta description length. Returns 15 for 120–160 chars, 8 for 90–180 chars, 0 otherwise.
+     */
     private function scoreMetaDescription(string $metaDescription): int
     {
         $len = Str::length(trim($metaDescription));
@@ -74,6 +80,9 @@ class SeoAnalyzerService
         return 0;
     }
 
+    /**
+     * Return $max when the primary keyword appears in $text (case-insensitive), 0 otherwise.
+     */
     private function scoreKeywordInText(string $keyword, string $text, int $max): int
     {
         if ($keyword === '') {
@@ -83,6 +92,10 @@ class SeoAnalyzerService
         return Str::contains(Str::lower($text), Str::lower($keyword)) ? $max : 0;
     }
 
+    /**
+     * Score keyword density in plain-text content.
+     * Returns 10 for 1–2 %, 5 for 0.5–3 %, 0 otherwise.
+     */
     private function scoreKeywordDensity(string $keyword, string $contentText): int
     {
         if ($keyword === '') {
@@ -110,6 +123,10 @@ class SeoAnalyzerService
         return 0;
     }
 
+    /**
+     * Score content length in words.
+     * Returns 10 for ≥800 words, 5 for ≥500 words, 0 otherwise.
+     */
     private function scoreContentLength(string $contentText): int
     {
         $wordCount = str_word_count(strip_tags($contentText));
@@ -125,6 +142,11 @@ class SeoAnalyzerService
         return 0;
     }
 
+    /**
+     * Score the heading structure of the HTML content.
+     * Full marks (10) require: exactly one H1 containing the keyword, 2–3 H2s, and 3–5 H3s.
+     * Partial marks (5) require at least one H1 and one H2.
+     */
     private function scoreHeadingStructure(string $contentHtml, string $keyword): int
     {
         $h1Count = preg_match_all('/<h1\b[^>]*>/i', $contentHtml);
@@ -143,6 +165,10 @@ class SeoAnalyzerService
         return 0;
     }
 
+    /**
+     * Score internal links found in the HTML content (relative paths or same host).
+     * Returns 10 for ≥2 internal links, 5 for 1, 0 for none.
+     */
     private function scoreInternalLinks(string $contentHtml): int
     {
         preg_match_all('/<a\b[^>]*href=["\']([^"\']+)["\'][^>]*>/i', $contentHtml, $matches);
@@ -174,6 +200,11 @@ class SeoAnalyzerService
         return 0;
     }
 
+    /**
+     * Score image alt-text quality (keyword present in alt).
+     * Returns 10 when all images have valid alt text (or when there are no images),
+     * 5 when at least half do, 0 otherwise.
+     */
     private function scoreImageAlt(string $contentHtml, string $keyword): int
     {
         preg_match_all('/<img\b[^>]*>/i', $contentHtml, $images);
@@ -205,6 +236,11 @@ class SeoAnalyzerService
         return 0;
     }
 
+    /**
+     * Score the URL slug quality.
+     * Returns 5 for a concise (3–8 parts), keyword-containing slug without stop words;
+     * 3 for a reasonably sized slug (2–10 parts); 0 otherwise.
+     */
     private function scoreUrlSlug(string $slug, string $keyword): int
     {
         $parts = array_values(array_filter(explode('-', trim($slug)), fn ($part) => $part !== ''));

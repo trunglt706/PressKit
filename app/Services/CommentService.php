@@ -15,11 +15,17 @@ class CommentService
     ) {
     }
 
+    /**
+     * Paginate comments for the given article, newest first, with the author eager-loaded.
+     */
     public function paginateByArticle(Article $article, int $perPage = 20): LengthAwarePaginator
     {
         return $this->commentRepository->paginateByArticle($article, $perPage);
     }
 
+    /**
+     * Create a comment associated with the given article.
+     */
     public function createForArticle(Article $article, array $data): Comment
     {
         return $this->commentRepository->create([
@@ -32,6 +38,10 @@ class CommentService
         ]);
     }
 
+    /**
+     * Update a comment that belongs to the given article.
+     * Throws InvalidArgumentException if the comment does not belong to the article.
+     */
     public function updateForArticle(Article $article, Comment $comment, array $data): Comment
     {
         $this->ensureCommentBelongsToArticle($article, $comment);
@@ -45,12 +55,19 @@ class CommentService
         ]);
     }
 
+    /**
+     * Delete a comment that belongs to the given article.
+     * Throws InvalidArgumentException if the comment does not belong to the article.
+     */
     public function deleteForArticle(Article $article, Comment $comment): void
     {
         $this->ensureCommentBelongsToArticle($article, $comment);
         $this->commentRepository->delete($comment);
     }
 
+    /**
+     * Assert that the comment belongs to the article; throws InvalidArgumentException otherwise.
+     */
     private function ensureCommentBelongsToArticle(Article $article, Comment $comment): void
     {
         if ((int) $comment->article_id !== (int) $article->id) {

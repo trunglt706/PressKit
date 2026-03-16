@@ -11,6 +11,7 @@ export default defineConfig({
                 'resources/css/contact.css',
                 'resources/css/policy.css',
                 'resources/js/app.js',
+                'resources/js/article-show.js',
                 'resources/js/contact.js',
                 'resources/js/policy.js',
             ],
